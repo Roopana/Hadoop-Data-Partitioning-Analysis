@@ -12,7 +12,7 @@
 ## Table of contents
 * [Description](#Description)
 * [Technologies](#technologies)
-* [Setup Cloudera VM](#setupclouderavm)
+* [Setup Cloudera VM](#setup%20cloudera%20vm)
 * [Deployment Instructions](#deploymentinstructions)
 * [Rollback script](#rollbackscript)
 
