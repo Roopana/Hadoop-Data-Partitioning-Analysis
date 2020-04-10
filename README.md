@@ -14,10 +14,11 @@
 * [Technologies](#technologies)
 * [Setup](#setupclouderavm)
 * [Deployment Instructions](#deploymentnstructions)
-* [Rollback script](#rollback script)
+* [Rollback script](#rollbackscript)
 
 ## Description
-The data warehouse has data for Sales, Customers, Employees and Products. Given data has been cleaned, validated and stored in partitions to facilitate efficient analysis and visualization.
+The data warehouse has data for Sales, Customers, Employees and Products. Below is the screenshot of data model used. Given data has been cleaned, validated and stored in partitions to facilitate efficient analysis and visualization. 
+
   ### Data Clean up & Validation
   The product has entries with price as zero. These entries have been removed since the price of a product cannot be 0?
   Few entries had price value with high precision (256.99999999...) These values have been rounded off to two decimals for an   easy visualization to users. 
