@@ -12,9 +12,9 @@
 ## Table of contents
 * [Description](#Description)
 * [Technologies](#technologies)
-* [Setup Cloudera VM](#setup%20cloudera%20vm)
-* [Deployment Instructions](#deploymentinstructions)
-* [Rollback script](#rollbackscript)
+* [Setup Cloudera VM](#setup-cloudera-vm)
+* [Deployment Instructions](#deployment-instructions)
+* [Rollback script](#rollback-script)
 
 ## Description
 The data warehouse has data for Sales, Customers, Employees and Products. Below is the screenshot of data model used. Given data has been cleaned, validated and stored in partitions to facilitate efficient analysis and visualization. 
