@@ -43,7 +43,7 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
 Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/Cloudera%20VM.pdf) to install and configure Cloudera VM on local machine
 
 ## Deployment Instructions
-* Download data from warehouse: https://csci5751-2020sp.s3-us-west-2.amazonaws.com/sales-data/salesdata.tar.gz
+* Download data from [warehouse](https://csci5751-2020sp.s3-us-west-2.amazonaws.com/sales-data/salesdata.tar.gz)
 * Unzip the data
 * Delete the zip file
 * Load the raw data to HDFS
