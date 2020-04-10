@@ -1,4 +1,4 @@
-# CSCI 5751_Hadoop_Impala_Project
+# CSCI 5751_Hadoop_Project
 > Ingest the sales data from the data warehouse into the data lake and prepare it for analysis and consumption.
 
 ### Group Name: zeros_and_ones
@@ -19,6 +19,7 @@
 ## Description
 The data warehouse has data for Sales, Customers, Employees and Products. Below is the screenshot of data model used. Given data has been cleaned, validated and stored in partitions to facilitate efficient analysis and visualization. 
 
+   ![Sales Data Model](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/SalesDataModel.png)
   ### Data Clean up & Validation
   The product has entries with price as zero. These entries have been removed since the price of a product cannot be 0?
   Few entries had price value with high precision (256.99999999...) These values have been rounded off to two decimals for an   easy visualization to users. 
@@ -30,9 +31,6 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
 <br /> 2. customer_monthly_sales_2019_partitioned_view: This table gives monthly sales of each customer in 2019. The data partitioned on year and month. TODO Add time taken to run queries on partitioned and un part.. data
 <br /> 3. product_region_sales_partition: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
 
-## Screenshots
-![Example screenshot](./img/screenshot.png)
-
 ## Technologies
 * VirtualBox Cloudera VM - version 5.13.0
   * HDFS
@@ -42,8 +40,7 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
 Follow the instructions in to install and configure Cloudera VM on local machine
 
 ## Deployment Instructions
-* Download data from warehouse: https://csci5751-2020sp.s3-us-west-2.amazonaws.com/sales-data/salesda
-ta.tar.gz
+* Download data from warehouse: https://csci5751-2020sp.s3-us-west-2.amazonaws.com/sales-data/salesdata.tar.gz
 * Unzip the data
 * Delete the zip file
 * Load the raw data to HDFS
