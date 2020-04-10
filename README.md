@@ -27,9 +27,9 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
   * Views:
   <br /> customer_monthly_sales_2019_view and top_ten_customers_amount_view are created for a quick retrieval of monthy salesin 2019 and top 10 customers. Procedure to run these views is explained in the setup section. 
   * Partitions:
-  <br /> 1. product_sales_partition: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
-<br /> 2. customer_monthly_sales_2019_partitioned_view: This table gives monthly sales of each customer in 2019. The data partitioned on year and month. TODO Add time taken to run queries on partitioned and un part.. data
-<br /> 3. product_region_sales_partition: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
+      * product_sales_partition: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
+      * customer_monthly_sales_2019_partitioned_view: This table gives monthly sales of each customer in 2019. The data partitioned on year and month. TODO Add time taken to run queries on partitioned and un part.. data
+      * product_region_sales_partition: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
 
 ## Technologies
 * VirtualBox Cloudera VM - version 5.13.0
