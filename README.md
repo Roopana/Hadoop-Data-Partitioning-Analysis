@@ -40,7 +40,7 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
   * Impala
 
 ## Setup Cloudera VM
-Follow the instructions in to install and configure Cloudera VM on local machine
+Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/Cloudera-VM.pdf) to install and configure Cloudera VM on local machine
 
 ## Deployment Instructions
 * Download data from warehouse: https://csci5751-2020sp.s3-us-west-2.amazonaws.com/sales-data/salesdata.tar.gz
