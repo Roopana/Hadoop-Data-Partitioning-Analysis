@@ -21,8 +21,8 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
 
    ![Sales Data Model](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/SalesDataModel.png)
   ### Data Clean up & Validation
-  The product has entries with price as zero. These entries have been removed since the price of a product cannot be 0?
-  Few entries had price value with high precision (256.99999999...) These values have been rounded off to two decimals for an   easy visualization to users. 
+  * The product has entries with price as zero. These entries have been removed since the price of a product cannot be 0?
+  * Few entries had price value with high precision (256.99999999...) These values have been rounded off to two decimals for an   easy visualization to users. 
   ### Data Partitions and Views
   * Views:
   <br/>&nbsp;&nbsp;&nbsp;&nbsp; customer_monthly_sales_2019_view and top_ten_customers_amount_view are created for a quick retrieval of monthy salesin 2019 and top 10 customers. Procedure to run these views is explained in the setup section. 
