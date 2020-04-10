@@ -12,8 +12,8 @@
 ## Table of contents
 * [Description](#Description)
 * [Technologies](#technologies)
-* [Setup](#setupclouderavm)
-* [Deployment Instructions](#deploymentnstructions)
+* [Setup Cloudera VM](#setupclouderavm)
+* [Deployment Instructions](#deploymentinstructions)
 * [Rollback script](#rollbackscript)
 
 ## Description
