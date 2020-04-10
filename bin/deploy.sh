@@ -96,7 +96,7 @@ drop_sales_db() {
    impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.employees PURGE;"
    impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.product_sales_partition PURGE;"
    impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.product_region_sales_partition PURGE;"
-   impala-shell -q "DROP DATABASE IF EXISTS zeroes_and_ones_sales CASCADE;"
+   impala-shell -q "DROP DATABASE IF EXISTS zeroes_and_ones_sales;"
 }
 
 drop_sales_views() {

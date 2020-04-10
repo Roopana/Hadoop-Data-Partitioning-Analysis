@@ -10,7 +10,7 @@ SET VAR:database_name=zeroes_and_ones_sales;
 --of all products purchased by month for 2019.
 
 CREATE VIEW IF NOT EXISTS ${var:database_name}.customer_monthly_sales_2019_partitioned_view as
-Select s.customer_id,c.last_name,c.first_name,s.sales_year,s.sales_month,cast(sum(s.total_sales_amount) as decimal(15,2)) as agg_total_amount
+Select s.customer_id,c.last_name,c.first_name,s.sales_year as year,s.sales_month as month,cast(sum(s.total_sales_amount) as decimal(15,2)) as agg_total_amount
 From  ${var:database_name}.product_sales_partition s 
 	join ${var:database_name}.customers c
 	using(customer_id)
