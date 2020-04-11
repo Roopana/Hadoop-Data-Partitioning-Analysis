@@ -46,23 +46,11 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
 Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/Cloudera%20VM.pdf) to install and configure Cloudera VM on local machine
 
 ## Deployment Instructions
-* Clone the git repository
-* sh/
 
-
-Download data from [warehouse](https://csci5751-2020sp.s3-us-west-2.amazonaws.com/sales-data/salesdata.tar.gz)
-* Unzip the data
-* Delete the zip file
-* Load the raw data to HDFS
-* Create an Impala data base with raw data: zeros_and_ones_sales_raw
-* Create another data base with the clean data: zeros_and_ones_sales
-* Create sales views 
-  how to create ? we have to give run instructions or the sql files/ bash script (TODO)
-* Create product_sales_partition
-* Create partitioned
-* Create product_region_sales_partition
+* Clone the git repository  
+* In the same location where the repository is cloned, run "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -h" to get the list of commands that need to be executed for each query.
 
 ## Rollback Script
-* Undo all the steps in one step  (TODO - script to undo)
+* run "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d" 
 
 
