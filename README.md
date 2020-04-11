@@ -22,7 +22,7 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
    ![Sales Data Model](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/SalesDataModel.png)
   ### Data Clean up & Validation
   * In the raw data, many entries have middle name values as empty in _Customers_ tables.  Since Business Questions do not require this field, we have removed this field while constructing parquet tables in _zeros_and_ones_sales database_.
-  * In _Employees_ table, the region field has values differing in case(for example: _East_, _east_). We have converted all the values in the 'region' column to lowercase to remove false duplicates. 
+  * In _Employees_ table, the region field has values differing in case(for example: _East_, _east_). We have converted all the values in the _region_ column to lowercase to remove false duplicates. 
   * Few products have price as 0. We retained these entries to preserve the details of all the products.
   * Few entries had price value with high precision (256.99999999...) These values have been rounded off to two decimals for an   easy visualization to users. 
   ### Data Partitions and Views
