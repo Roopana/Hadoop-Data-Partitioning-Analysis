@@ -4,7 +4,7 @@
 ### Group Name: zeros_and_ones
 
 ### Group Members: 
-* Ayushi Rastogi,
+* Ayushi Rastogi
 * Krishna Shravya Gade
 * Mourya Karan Reddy
 * Roopana Vuppalapati Chenchu
@@ -17,24 +17,24 @@
 * [Rollback Script](#rollback-script)
 
 ## Description
-The data warehouse has data for Sales, Customers, Employees and Products. Below is the screenshot of data model used. Given data has been cleaned, validated and stored in partitions to facilitate efficient analysis and visualization. 
+The data warehouse has data for Sales, Customers, Employees and Products. Below is the screenshot of the data model used. Given data has been cleaned, validated and stored in partitions to facilitate efficient analysis and visualization. 
 
    ![Sales Data Model](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/SalesDataModel.png)
   ### Data Clean up & Validation
-  * In the raw data, many entries have middle name values as empty in 'Customers' tables.  Since Business Questions do not require this field, we have removed this field while constructing parquet tables in zeros_and_ones_sales database.
-  * In 'Employees' table, the region field has values differing in case(for example: East, east). We have converted all the values in the 'region' column to lowercase to remove false duplicates. 
+  * In the raw data, many entries have middle name values as empty in _Customers_ tables.  Since Business Questions do not require this field, we have removed this field while constructing parquet tables in _zeros_and_ones_sales database_.
+  * In _Employees_ table, the region field has values differing in case(for example: _East_, _east_). We have converted all the values in the 'region' column to lowercase to remove false duplicates. 
   * Few products have price as 0. We retained these entries to preserve the details of all the products.
   * Few entries had price value with high precision (256.99999999...) These values have been rounded off to two decimals for an   easy visualization to users. 
   ### Data Partitions and Views
   * Views:
-  <br/>&nbsp;&nbsp;&nbsp;&nbsp; customer_monthly_sales_2019_view and top_ten_customers_amount_view are created for a quick retrieval of monthy salesin 2019 and top 10 customers. Procedure to run these views is explained in the setup section. 
+  <br/>&nbsp;&nbsp;&nbsp;&nbsp; _customer_monthly_sales_2019_view_ and _top_ten_customers_amount_view_ are created for a quick retrieval of monthy sales in 2019 and top 10 customers. Procedure to run these views is explained in the deployment instructions section. 
   * Partitions:
    <br/>&nbsp;&nbsp;&nbsp;&nbsp; Using partitioned views makes the data analysis and visualization more efficient due to multiple reasons. Partitioning divides table entries into distinct groups based on the partition key. Hence when searching for a value in the partitioned table, the number of entries that need to be searched is lesser resulting in a reduced run time. Also, the query can be run in parallel in different partitions, reducing the response time of query. 
-   <br/>&nbsp;&nbsp;&nbsp;&nbsp; Below are three partitioned views created as part of the project. It can be observed that, it is more efficient to use 'customer_monthly_sales_2019_partitioned_view' than  'customer_monthly_sales_2019_view' for data retrieval and data visualization due to the partitioning done on sales year and month.
+   <br/>&nbsp;&nbsp;&nbsp;&nbsp; Below are three partitioned views created as part of the project. It can be observed that, it is more efficient to use _customer_monthly_sales_2019_partitioned_view_ than  _customer_monthly_sales_2019_view_ for data retrieval and data visualization due to the partitioning done on sales year and month.
       
-      * product_sales_partition: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
-    * customer_monthly_sales_2019_partitioned_view: This table gives monthly sales of each customer in 2019. The data partitioned on year and month.
-    * product_region_sales_partition: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
+      * _product_sales_partition_: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
+    * _customer_monthly_sales_2019_partitioned_view_: This table gives monthly sales of each customer in 2019. The data partitioned on year and month.
+    * _product_region_sales_partition_: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
 
 ## Technologies
 * VirtualBox Cloudera VM - version 5.13.0
@@ -48,10 +48,10 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 ## Deployment Instructions
 
 * Clone the git repository  
-* In the same location where the repository is cloned, run "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -h" to get the list of commands that need to be executed for each query.
-* Run the queries as required. For example, "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l" to load sales data to hdfs
+* In the same location where the repository is cloned, run "_sh /zeroes_and_ones_Hadoop/bin/deploy.sh -h_" to get the list of commands that need to be executed for each query.
+* Run the queries as required. For example, "_sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l_" to load sales data to hdfs
 
 ## Rollback Script
-* run "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d" to drop all views, databases and delete the data from HDFS and disk.
-   * Additional info for user: While dropping managed tables(parquet tables), instead of using 'CASCADE' command to drop the databases, the script initially drops the tables (using 'PURGE' command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
+* run "_sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d_" to drop all views, databases and delete the data from HDFS and disk.
+   * Additional info for user: While dropping managed tables(parquet tables), instead of using _'CASCADE'_ command to drop the databases, the script initially drops the tables (using _'PURGE'_ command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
 
