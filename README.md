@@ -60,8 +60,7 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 ### 1. Query to give the total dollar amount sold by year
 <br/>
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
-<br/>
-### Query Results
+#### Query Results
 <br/>
 +---------------------+------+<br/>
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year&nbsp;&nbsp; |<br/>
@@ -75,8 +74,7 @@ Fetched 3 row(s) in 14.29s<br/>
 ### 2. Query to give the total dollar amount sold by year after inserting given records into the sales table
 <br/>
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
-<br/>
-### Query Results
+#### Query Results
 <br/>
 +---------------------+------+<br/>
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | year&nbsp;&nbsp; |<br/>
@@ -90,8 +88,8 @@ Fetched 3 row(s) in 18.82s<br/>
 ### 3. Query to give the total dollar amount sold by year after deleting records added in step 2 and upserting given records into the sales table
 <br/>
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
-<br/>
-### Query Results
+
+#### Query Results
 <br/>
 +---------------------+------+<br/>
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year&nbsp;&nbsp; |<br/>
