@@ -64,7 +64,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 ### Query Results
 <br/>
 +---------------------+------+<br/>
-| total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year&nbsp;&nbsp;&nbsp; |<br/>
+| total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year&nbsp;&nbsp;&nbsp; |<br/>
 +---------------------+------+<br/>
 | 260623819.5950315 | 2020 |<br/>
 | 1505770418.65269&nbsp;&nbsp;&nbsp;  | 2018 |<br/>
