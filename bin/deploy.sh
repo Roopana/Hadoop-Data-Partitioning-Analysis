@@ -20,16 +20,17 @@ display_help() {
     echo
     echo "Usage: sh ~/zeroes_and_ones_Hadoop/bin/deploy.sh -<option from below>"
     echo
-    echo   -h, --help  :        display help contents
-    echo   -g, --get_data  :         get sales data from url - Deliverable 2 step 1.1
-    echo   -l, --load  :        load sales data to hdfs - Deliverable 2 step 1.2
-    echo   -cr, --create_raw_db  :    create Sales raw database - Deliverable 2 step 1.3,1.4
-    echo   -cs, --create_sales_db  :  create Sales database - Deliverable 2 step 2.2,2.3
-    echo   -cv, --create_sales_views  :   create Sales views - Deliverable 2, step 2.4
-    echo   -cps, --create_product_sales_partitioned  :     Create partitioned tables - Deliverable 3 step 1
-    echo   -cpr, --create_product_region_sales_partitioned  :     Create partitioned tables - Deliverable 3 step 3
-    echo   -cpv, --create_sales_partitioned_view  :     Create Sales view from partitioned table - Deliverable 3 step 2
-    echo   -d, --drop :    drop all Views and DATABASES with CASCADE and delete all data from HDFS and disk - Deliverable 3, step 4
+    echo   -h,     --help  :                                        display help contents
+    echo   -g,     --get_data  :                                    get sales data from url - Deliverable 2 step 1.1
+    echo   -l,     --load  :                                        load sales data to hdfs - Deliverable 2 step 1.2
+    echo   -cr,    --create_raw_db  :                               create Sales raw database - Deliverable 2 step 1.3,1.4
+    echo   -qa,    --quality_analysis :                             view quality analysis queries used 2 step 2.1
+    echo   -cs,    --create_sales_db  :                             create Sales database - Deliverable 2 step 2.2,2.3
+    echo   -cv,    --create_sales_views  :                          create Sales views - Deliverable 2, step 2.4
+    echo   -cps,   --create_product_sales_partitioned  :            Create partitioned tables - Deliverable 3 step 1
+    echo   -cpr,   --create_product_region_sales_partitioned  :     Create partitioned tables - Deliverable 3 step 3
+    echo   -cpv,   --create_sales_partitioned_view  :               Create Sales view from partitioned table - Deliverable 3 step 2
+    echo   -d,     --drop :                                         drop all Views and DATABASES with CASCADE and delete all data from HDFS and disk - Deliverable 3, step 4
     exit 1
 }
 
@@ -62,6 +63,12 @@ load_hdfs() {
 
 create_sales_raw_db() {
    impala-shell -f "$path_to_files"/sql/ddl_create_sales_raw.sql
+}
+
+
+do_quality_analysis(){
+  echo running quality analysis queries
+  impala-shell -f "$path_to_files"/quality_check.sql
 }
 
 create_sales_db() {
@@ -138,6 +145,11 @@ for i in {1}
           echo "Creating raw external tables"
           create_sales_raw_db
           ;;
+
+      -qa | --quality_analysis)
+        echo "Running QA Queries"
+        do_quality_analysis
+        ;;
 
       -cs | --create_sales_tables)
           echo "Creating Sales managed parquet tables as Select on Sales raw DATABASE"
