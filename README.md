@@ -67,8 +67,8 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year&nbsp;&nbsp;&nbsp; |<br/>
 +---------------------+------+<br/>
 | 260623819.5950315 | 2020 |<br/>
-| 1505770418.65269&nbsp;&nbsp;  | 2018 |<br/>
-| 1761530108.44215&nbsp;&nbsp;  | 2019 |<br/>
+| 1505770418.65269&nbsp;&nbsp;&nbsp;  | 2018 |<br/>
+| 1761530108.44215&nbsp;&nbsp;&nbsp;&nbsp;  | 2019 |<br/>
 +-------------------+------+<br/>
 Fetched 3 row(s) in 14.29s<br/>
 
@@ -82,8 +82,8 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | year&nbsp;&nbsp;&nbsp; |<br/>
 +---------------------+------+<br/>
 | 260628054.5750315 | 2020 |<br/>
-| 1505770418.65269&nbsp;&nbsp;  | 2018 |<br/>
-| 1761530108.44215&nbsp;&nbsp;  | 2019 |<br/>
+| 1505770418.65269&nbsp;&nbsp;&nbsp;  | 2018 |<br/>
+| 1761530108.44215&nbsp;&nbsp;&nbsp;&nbsp;  | 2019 |<br/>
 +-------------------+------+<br/>
 Fetched 3 row(s) in 18.82s<br/>
 
@@ -97,7 +97,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year&nbsp;&nbsp;&nbsp; |<br/>
 +---------------------+------+<br/>
 | 260623819.5950315 | 2020 |<br/>
-| 1505770418.65269&nbsp;&nbsp;  | 2018 |<br/>
-| 1761530108.44215&nbsp;&nbsp;  | 2019 |<br/>
+| 1505770418.65269&nbsp;&nbsp;&nbsp;  | 2018 |<br/>
+| 1761530108.44215&nbsp;&nbsp;&nbsp;&nbsp;  | 2019 |<br/>
 +-------------------+------+<br/>
 Fetched 3 row(s) in 42.45s<br/>
