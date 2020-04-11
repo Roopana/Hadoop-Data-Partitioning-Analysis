@@ -1,5 +1,5 @@
 # CSCI 5751_Hadoop_Project
-> Ingest the sales data from the data warehouse into the data lake and prepare it for analysis and consumption.
+> Ingest sales data from data warehouse into data lake and prepare it for analysis and consumption.
 
 ### Group Name: zeros_and_ones
 
