@@ -49,7 +49,7 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 
 * Clone the git repository  
 * In the same location where the repository is cloned, run "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -h" to get the list of commands that need to be executed for each query.
-* Run the queries as required. For example echo   -l to load sales data to hdfs
+* Run the queries as required. For example, "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l" to load sales data to hdfs
 
 ## Rollback Script
 * run "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d" to drop all views, databases and delete the data from HDFS and disk.
