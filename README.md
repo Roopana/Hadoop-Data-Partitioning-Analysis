@@ -48,10 +48,10 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 ## Deployment Instructions
 
 * Clone the git repository  
-* In the same location where the repository is cloned, run "_sh /zeroes_and_ones_Hadoop/bin/deploy.sh -h_" to get the list of commands that need to be executed for each query.
-* Run the queries as required. For example, "_sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l_" to load sales data to hdfs
+* In the same location where the repository is cloned, run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -h"_ to get the list of commands that need to be executed for each query.
+* Run the queries as required. For example, _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l"_ to load sales data to hdfs
 
 ## Rollback Script
-* run "_sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d_" to drop all views, databases and delete the data from HDFS and disk.
+* run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d"_ to drop all views, databases and delete the data from HDFS and disk.
    * Additional info for user: While dropping managed tables(parquet tables), instead of using _'CASCADE'_ command to drop the databases, the script initially drops the tables (using _'PURGE'_ command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
 
