@@ -21,7 +21,9 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
 
    ![Sales Data Model](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/SalesDataModel.png)
   ### Data Clean up & Validation
-  * The product has entries with price as zero. These entries have been removed since the price of a product cannot be 0?
+  * In the raw data, many entries have middle name values as empty in 'Customers' tables.  Since Business Questions do not require this field, we have removed this field while constructing parquet tables in zeros_and_ones_sales database.
+  * In 'Employees' table, the region field has values differing in case(for example: East, east). We have converted all the values in the 'region' column to lowercase to remove false duplicates. 
+  * Few products have price as 0. We retained these entries to preserve the details of all the products.
   * Few entries had price value with high precision (256.99999999...) These values have been rounded off to two decimals for an   easy visualization to users. 
   ### Data Partitions and Views
   * Views:
@@ -38,12 +40,17 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
 * VirtualBox Cloudera VM - version 5.13.0
   * HDFS
   * Impala
+  * Kudu
 
 ## Setup Cloudera VM
 Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/blob/master/Cloudera%20VM.pdf) to install and configure Cloudera VM on local machine
 
 ## Deployment Instructions
-* Download data from [warehouse](https://csci5751-2020sp.s3-us-west-2.amazonaws.com/sales-data/salesdata.tar.gz)
+* Clone the git repository
+* sh/
+
+
+Download data from [warehouse](https://csci5751-2020sp.s3-us-west-2.amazonaws.com/sales-data/salesdata.tar.gz)
 * Unzip the data
 * Delete the zip file
 * Load the raw data to HDFS
