@@ -53,6 +53,5 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 
 ## Rollback Script
 * run "sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d" to drop all views, databases and delete the data from HDFS and disk.
-* Additional info for user: 
-
+   * Additional info for user: While dropping managed tables(parquet tables), instead of using 'CASCADE' command to drop the databases, the script initially drops the tables (using 'PURGE' command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
 
