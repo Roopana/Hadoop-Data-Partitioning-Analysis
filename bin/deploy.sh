@@ -30,6 +30,12 @@ display_help() {
     echo   -cps,   --create_product_sales_partitioned  :            Create partitioned tables - Deliverable 3 step 1
     echo   -cpr,   --create_product_region_sales_partitioned  :     Create partitioned tables - Deliverable 3 step 3
     echo   -cpv,   --create_sales_partitioned_view  :               Create Sales view from partitioned table - Deliverable 3 step 2
+    echo   -cks, --create_kudu_sales : Create kudu sales and products tables
+    echo   -iks, --insert_kudu_sales : Insert parquet data into kudu sales and products tables
+    echo   -q3, --query3 : Run a query that will give the total dollar amount sold by year
+    echo   -ir, --insert_records : Insert records into kudu_sales table
+    echo   -dr, --delete_records : Delete records added in step 4 from kudu_sales
+    echo   -ur, --upsert_records : Upsert records in kudu_sales
     echo   -d,     --drop :                                         drop all Views and DATABASES with CASCADE and delete all data from HDFS and disk - Deliverable 3, step 4
     exit 1
 }
@@ -91,6 +97,33 @@ create_sales_partitioned_view() {
    impala-shell -f "$path_to_files"/sql/create_sales_partitioned_view.sql
 } 
 
+create_kudu_sales(){
+	echo Creating kudu sales table
+	impala-shell -f "$path_to_files"/sql/create_kudu_sales.sql 
+}
+query3(){
+	echo Running a query to find total dollars sale per year
+	impala-shell -f "$path_to_files"/sql/query3.sql 
+}
+
+insert_records_kudu_sales(){
+    echo Inserting records into kudu sales table
+    impala-shell -f "$path_to_files"/sql/insert_records_kudu.sql
+}
+
+delete_records_kudu_sales(){
+    echo deleting records added in step 4 kudu sales table
+    impala-shell -f "$path_to_files"/sql/delete_records_kudu.sql
+}
+upsert_records_kudu_sales(){
+    echo Upserting records into kudu sales table
+    impala-shell -f "$path_to_files"/sql/upsert_records_kudu.sql
+}
+insert_kudu_sales(){
+    echo Inserting parquet tables into kudu sales table
+    impala-shell -f "$path_to_files"/sql/insert_kudu_sales.sql
+}
+
 
 drop_raw_db() {
    impala-shell -q "DROP DATABASE IF EXISTS zeroes_and_ones_sales_raw CASCADE;"
@@ -104,6 +137,8 @@ drop_sales_db() {
    impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.product_sales_partition PURGE;"
    impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.product_region_sales_partition PURGE;"
    impala-shell -q "DROP DATABASE IF EXISTS zeroes_and_ones_sales;"
+   impala-shell -q "DROP TABLE IF EXISTS kudu_sales;"
+   impala-shell -q "DROP TABLE IF EXISTS kudu_products;"
 }
 
 drop_sales_views() {
@@ -175,7 +210,30 @@ for i in {1}
           echo "Creating partitioned sales view"
           create_sales_partitioned_view
           ;;
-
+         -cks | --create_kudu_sales)
+            echo "Creating kudu sales table"
+            create_kudu_sales
+            ;;
+              -iks | --insert_kudu_sales)
+            echo "Inserting parquet table into  kudu table"
+            insert_kudu_sales
+            ;;
+               -q3 | --query3)
+            echo "Running a query that will give the total dollar amount sold by year"
+            query3
+            ;;
+            -ir | --insert_records)
+            echo " Insert records into kudu_sales table"
+            insert_records_kudu_sales
+            ;;
+            -dr | --delete_records)
+            echo " Delete records added in step 4 from kudu_sales"
+            delete_records_kudu_sales
+            ;;
+            -ur | --upsert_records)
+            echo " Upsert records in kudu_sales"
+            upsert_records_kudu_sales
+            ;;
 
       -d | --drop)
           echo "Dropping all Views and DATABASES with CASCADE and deleting all data from HDFS and disk"
