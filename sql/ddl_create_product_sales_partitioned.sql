@@ -3,7 +3,7 @@
 --*************************************
 
 
-SET VAR:database_name=zeroes_and_ones_sales;
+SET VAR:database_name=zeros_and_ones_sales;
 
 --Create Parquet Product Sales Partitioned Table
 CREATE TABLE IF NOT EXISTS ${var:database_name}.product_sales_partition

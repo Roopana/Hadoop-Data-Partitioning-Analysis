@@ -8,7 +8,7 @@ input=$1
 sales_directory=/home/cloudera/salesdb
 # or sales_directory=~/salesdb
 hdfs_directory=/salesdb
-path_to_files=/home/cloudera/zeroes_and_ones_Hadoop
+path_to_files=/home/cloudera/zeros_and_ones_Hadoop
 
 # or path_to_files=~/csci5751_Hadoop
 
@@ -18,7 +18,7 @@ path_to_files=/home/cloudera/zeroes_and_ones_Hadoop
 
 display_help() {
     echo
-    echo "Usage: sh ~/zeroes_and_ones_Hadoop/bin/deploy.sh -<option from below>"
+    echo "Usage: sh ~/zeros_and_ones_Hadoop/bin/deploy.sh -<option from below>"
     echo
     echo   -h,     --help  :                                        display help contents
     echo   -g,     --get_data  :                                    get sales data from url - Deliverable 2 step 1.1
@@ -30,12 +30,17 @@ display_help() {
     echo   -cps,   --create_product_sales_partitioned  :            Create partitioned tables - Deliverable 3 step 1
     echo   -cpr,   --create_product_region_sales_partitioned  :     Create partitioned tables - Deliverable 3 step 3
     echo   -cpv,   --create_sales_partitioned_view  :               Create Sales view from partitioned table - Deliverable 3 step 2
-    echo   -cks, --create_kudu_sales : Create kudu sales and products tables
-    echo   -iks, --insert_kudu_sales : Insert parquet data into kudu sales and products tables
-    echo   -q3, --query3 : Run a query that will give the total dollar amount sold by year
-    echo   -ir, --insert_records : Insert records into kudu_sales table
-    echo   -dr, --delete_records : Delete records added in step 4 from kudu_sales
-    echo   -ur, --upsert_records : Upsert records in kudu_sales
+    echo   -v1,    --view_customer_monthly_sales_2019_view  :       View data from customer_monthly_sales_2019_view
+    echo   -v2,    --view_customer_monthly_sales_2019_partitioned_view :  View data from customer_monthly_sales_2019_partitioned_view
+    echo   -v3,    --view_top_ten_customers_amount_view  :          View data from top_ten_customers_amount_view
+    echo   -v4,    --view_product_sales_partition  :                View data from product_sales_partition
+    echo   -v5,    --view_product_region_sales_partition :          View data from product_region_sales_partition
+    echo   -cks,   --create_kudu_sales :                            Create kudu sales and products tables
+    echo   -iks,   --insert_kudu_sales :                            Insert parquet data into kudu sales and products tables
+    echo   -q,     --query :                                        Run a query that will give the total dollar amount sold by year
+    echo   -ir,    --insert_records :                               Insert records into kudu_sales table
+    echo   -dr,    --delete_records :                               Delete records added in step 4 from kudu_sales
+    echo   -ur,    --upsert_records :                               Upsert records in kudu_sales
     echo   -d,     --drop :                                         drop all Views and DATABASES with CASCADE and delete all data from HDFS and disk - Deliverable 3, step 4
     exit 1
 }
@@ -97,11 +102,31 @@ create_sales_partitioned_view() {
    impala-shell -f "$path_to_files"/sql/create_sales_partitioned_view.sql
 } 
 
+view_customer_monthly_sales_2019_view() {
+   impala-shell -q "Select * from zeros_and_ones_sales.customer_monthly_sales_2019_view limit 50"
+}
+
+view_customer_monthly_sales_2019_partitioned_view() {
+   impala-shell -q "Select * from zeros_and_ones_sales.customer_monthly_sales_2019_partitioned_view limit 50"
+}
+
+view_top_ten_customers_amount_view() {
+   impala-shell -q "Select * from zeros_and_ones_sales.top_ten_customers_amount_view"
+}
+
+view_product_sales_partition(){
+   impala-shell -q "Select * from zeros_and_ones_sales.product_sales_partition limit 50"
+}
+
+view_product_sales_partition(){
+   impala-shell -q "Select * from zeros_and_ones_sales.product_region_sales_partition limit 50"
+}
+
 create_kudu_sales(){
 	echo Creating kudu sales table
 	impala-shell -f "$path_to_files"/sql/create_kudu_sales.sql 
 }
-query3(){
+query(){
 	echo Running a query to find total dollars sale per year
 	impala-shell -f "$path_to_files"/sql/query3.sql 
 }
@@ -126,25 +151,25 @@ insert_kudu_sales(){
 
 
 drop_raw_db() {
-   impala-shell -q "DROP DATABASE IF EXISTS zeroes_and_ones_sales_raw CASCADE;"
+   impala-shell -q "DROP DATABASE IF EXISTS zeros_and_ones_sales_raw CASCADE;"
 }
 
 drop_sales_db() {
-   impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.customers PURGE;"
-   impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.products PURGE;"
-   impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.sales PURGE;"
-   impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.employees PURGE;"
-   impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.product_sales_partition PURGE;"
-   impala-shell -q "DROP TABLE IF EXISTS zeroes_and_ones_sales.product_region_sales_partition PURGE;"
-   impala-shell -q "DROP DATABASE IF EXISTS zeroes_and_ones_sales;"
+   impala-shell -q "DROP TABLE IF EXISTS zeros_and_ones_sales.customers PURGE;"
+   impala-shell -q "DROP TABLE IF EXISTS zeros_and_ones_sales.products PURGE;"
+   impala-shell -q "DROP TABLE IF EXISTS zeros_and_ones_sales.sales PURGE;"
+   impala-shell -q "DROP TABLE IF EXISTS zeros_and_ones_sales.employees PURGE;"
+   impala-shell -q "DROP TABLE IF EXISTS zeros_and_ones_sales.product_sales_partition PURGE;"
+   impala-shell -q "DROP TABLE IF EXISTS zeros_and_ones_sales.product_region_sales_partition PURGE;"
+   impala-shell -q "DROP DATABASE IF EXISTS zeros_and_ones_sales;"
    impala-shell -q "DROP TABLE IF EXISTS kudu_sales;"
    impala-shell -q "DROP TABLE IF EXISTS kudu_products;"
 }
 
 drop_sales_views() {
-    impala-shell -q "Drop VIEW IF EXISTS zeroes_and_ones_sales.customer_monthly_sales_2019_view;"
-    impala-shell -q "Drop VIEW IF EXISTS zeroes_and_ones_sales.top_ten_customers_amount_view;"
-    impala-shell -q "Drop VIEW IF EXISTS zeroes_and_ones_sales.customer_monthly_sales_2019_partitioned_view;"
+    impala-shell -q "Drop VIEW IF EXISTS zeros_and_ones_sales.customer_monthly_sales_2019_view;"
+    impala-shell -q "Drop VIEW IF EXISTS zeros_and_ones_sales.top_ten_customers_amount_view;"
+    impala-shell -q "Drop VIEW IF EXISTS zeros_and_ones_sales.customer_monthly_sales_2019_partitioned_view;"
 }
 
 delete_hdfs_raw() {
@@ -210,30 +235,55 @@ for i in {1}
           echo "Creating partitioned sales view"
           create_sales_partitioned_view
           ;;
-         -cks | --create_kudu_sales)
-            echo "Creating kudu sales table"
-            create_kudu_sales
-            ;;
-              -iks | --insert_kudu_sales)
-            echo "Inserting parquet table into  kudu table"
-            insert_kudu_sales
-            ;;
-               -q3 | --query3)
-            echo "Running a query that will give the total dollar amount sold by year"
-            query3
-            ;;
-            -ir | --insert_records)
-            echo " Insert records into kudu_sales table"
-            insert_records_kudu_sales
-            ;;
-            -dr | --delete_records)
-            echo " Delete records added in step 4 from kudu_sales"
-            delete_records_kudu_sales
-            ;;
-            -ur | --upsert_records)
-            echo " Upsert records in kudu_sales"
-            upsert_records_kudu_sales
-            ;;
+
+      -v1  | --view_customer_monthly_sales_2019_view)
+          echo "Viewing customer_monthly_sales_2019_view"
+          view_customer_monthly_sales_2019_view
+          ;;
+
+      -v2  | --view_customer_monthly_sales_2019_partitioned_view)
+          echo "Viewing customer_monthly_sales_2019_partitioned_view"
+          view_customer_monthly_sales_2019_partitioned_view
+          ;;
+
+      -v3  | --view_top_ten_customers_amount_view)
+          echo "Viewing top_ten_customers_amount_view"
+          view_top_ten_customers_amount_view
+          ;;
+      -v4  | --view_product_sales_partition)
+          echo "Viewing product_sales_partition"
+          view_product_sales_partition
+          ;;
+
+      -v5  | --view_product_region_sales_partition)
+          echo "Viewing product_region_sales_partition"
+          view_product_region_sales_partition
+          ;;
+
+      -cks | --create_kudu_sales)
+          echo "Creating kudu sales table"
+          create_kudu_sales
+          ;;
+      -iks | --insert_kudu_sales)
+          echo "Inserting parquet table into  kudu table"
+          insert_kudu_sales
+          ;;
+      -q | --query)
+          echo "Running a query that will give the total dollar amount sold by year"
+          query
+          ;;
+      -ir | --insert_records)
+          echo " Insert records into kudu_sales table"
+          insert_records_kudu_sales
+          ;;
+      -dr | --delete_records)
+          echo " Delete records added in step 4 from kudu_sales"
+          delete_records_kudu_sales
+          ;;
+      -ur | --upsert_records)
+          echo " Upsert records in kudu_sales"
+          upsert_records_kudu_sales
+          ;;
 
       -d | --drop)
           echo "Dropping all Views and DATABASES with CASCADE and deleting all data from HDFS and disk"
@@ -252,7 +302,7 @@ for i in {1}
 
       *)  #Default option
           echo "Error: Unknown input: $1"
-          echo "Use \"sh ~/zeroes_and_ones_Hadoop/bin/deploy.sh -h\" to display input options"
+          echo "Use \"sh ~/zeros_and_ones_Hadoop/bin/deploy.sh -h\" to display input options"
           exit 1
           ;;
 

@@ -3,7 +3,7 @@
 --*************************************
 
 
-SET VAR:database_name=zeroes_and_ones_sales;
+SET VAR:database_name=zeros_and_ones_sales;
 --View: customer_monthly_sales_2019_partitioned_view
 --Customer id, customer last name, customer first name,
 --year, month, aggregate total amount

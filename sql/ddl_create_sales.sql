@@ -3,9 +3,9 @@
 --*************************************
 
 
-SET VAR:database_name=zeroes_and_ones_sales;
+SET VAR:database_name=zeros_and_ones_sales;
 
-SET VAR:source_database=zeroes_and_ones_sales_raw;
+SET VAR:source_database=zeros_and_ones_sales_raw;
 
 Create Database IF NOT EXISTS ${var:database_name}
 COMMENT 'Parquet Sales data imported from Sales raw database';

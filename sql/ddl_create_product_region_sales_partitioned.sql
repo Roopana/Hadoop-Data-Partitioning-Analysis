@@ -3,7 +3,7 @@
 --*************************************
 
 
-SET VAR:database_name=zeroes_and_ones_sales;
+SET VAR:database_name=zeros_and_ones_sales;
 
 --Create Parquet Product Region Sales Partitioned Table
 
