@@ -62,7 +62,7 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
-<br/>
+
 +---------------------+------+<br/>
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year&nbsp;&nbsp; |<br/>
 +---------------------+------+<br/>
@@ -77,7 +77,7 @@ Fetched 3 row(s) in 14.29s<br/>
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
-<br/>
+
 +---------------------+------+<br/>
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | year&nbsp;&nbsp; |<br/>
 +---------------------+------+<br/>
@@ -92,7 +92,7 @@ Fetched 3 row(s) in 18.82s<br/>
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
-<br/>
+
 +---------------------+------+<br/>
 | total_dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year&nbsp;&nbsp; |<br/>
 +---------------------+------+<br/>
