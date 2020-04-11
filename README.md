@@ -15,6 +15,7 @@
 * [Setup Cloudera VM](#setup-cloudera-vm)
 * [Deployment Instructions](#deployment-instructions)
 * [Rollback Script](#rollback-script)
+* [Kudu Results](#kudu-results)
 
 ## Description
 The data warehouse has data for Sales, Customers, Employees and Products. Below is the screenshot of the data model used. Given data has been cleaned, validated and stored in partitions to facilitate efficient analysis and visualization. 
@@ -55,3 +56,49 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 * run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d"_ to drop all views, databases and delete the data from HDFS and disk.
    * Additional info for user: While dropping managed tables(parquet tables), instead of using _'CASCADE'_ command to drop the databases, the script initially drops the tables (using _'PURGE'_ command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
 
+## Kudu Results
+### 1. Query to give the total dollar amount sold by year
+<br/>
+SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
+<br/>
+### Query Results
+<br/>
++-------------------+------+
+| total_dollar      | year |
++-------------------+------+
+| 260623819.5950315 | 2020 |
+| 1505770418.65269  | 2018 |
+| 1761530108.44215  | 2019 |
++-------------------+------+
+Fetched 3 row(s) in 14.29s
+
+### 2. Query to give the total dollar amount sold by year after inserting given records into the sales table
+<br/>
+SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
+<br/>
+### Query Results
+<br/>
+ +-------------------+------+
+| total_dollar      | year |
++-------------------+------+
+| 260628054.5750315 | 2020 |
+| 1505770418.65269  | 2018 |
+| 1761530108.44215  | 2019 |
++-------------------+------+
+Fetched 3 row(s) in 18.82s
+
+
+### Query to give the total dollar amount sold by year after deleting records added in step 2 and upserting given records into the sales table
+<br/>
+SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
+<br/>
+### Query Results
+<br/>
++-------------------+------+
+| total_dollar      | year |
++-------------------+------+
+| 260623819.5950315 | 2020 |
+| 1505770418.65269  | 2018 |
+| 1761530108.44215  | 2019 |
++-------------------+------+
+Fetched 3 row(s) in 42.45s
