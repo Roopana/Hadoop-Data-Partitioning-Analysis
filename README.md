@@ -32,9 +32,9 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
   #### Partitions:
   &nbsp;&nbsp;&nbsp;&nbsp; Below are three partitioned views created as part of the project. It is observed that, it is more efficient to use _customer_monthly_sales_2019_partitioned_view_ than  _customer_monthly_sales_2019_view_ for data retrieval and data visualization due to the partitioning done on sales year and month. Time taken to retrieve 50 rows using _select *_ query is 17.97 seconds when the data is not partitioned and 5.62 seconds using partioned view.
       
-    * product_sales_partition: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
-    * customer_monthly_sales_2019_partitioned_view: This table gives monthly sales of each customer in 2019. The data partitioned on year and month.
-    * product_region_sales_partition: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
+    * _product_sales_partition_: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
+    * _customer_monthly_sales_2019_partitioned_view_: This table gives monthly sales of each customer in 2019. The data partitioned on year and month.
+    * _product_region_sales_partition_: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
   
   &nbsp;&nbsp;&nbsp;&nbsp; Using the partitioned views makes the data analysis and visualization more efficient due to multiple reasons. Partitioning divides table entries into distinct groups based on the partition key. Hence when searching for a value in the partitioned table, the number of entries that need to be searched is lesser resulting in a reduced run time. Also, the query can be run in parallel in different partitions, reducing the response time of query. 
 ## Technologies
@@ -110,5 +110,4 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 Fetched 3 row(s) in 12.45s<br/>
 
 ### 6. Managing the records in Sales table using insert or upsert 
-<br/>
 The sales tables should be managed using upsert rather than insert. This is because a primary key mandatory in Kudu tables and when one tries to insert a record that already exists, Kudu just skips the record and it will not be updated. Whereas when upserted, if the record exists, it will be updated else a new record will be inserted into the table. This will prevent information loss about the sales.
