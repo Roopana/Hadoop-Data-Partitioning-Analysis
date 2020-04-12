@@ -53,7 +53,7 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 * Run the queries maintaining the relative order given in the help (or as required). For example, _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l"_ to load sales data to hdfs
 
 ## Rollback Script
-    * This script removes the databases, tables, HDFS files and data on disk used for both impala and kudu
+    _This script removes the databases, tables, HDFS files and data on disk used for both impala and kudu_
 * run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d"_ to drop all views, databases and delete the data from HDFS and disk.
    * Additional info for user: While dropping managed tables(parquet tables), instead of using _'CASCADE'_ command to drop the databases, the script initially drops the tables (using _'PURGE'_ command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
 
