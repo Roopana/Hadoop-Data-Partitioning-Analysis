@@ -21,8 +21,7 @@ select count(distinct product_id) from ${var:database_name}.products;
 select count(employee_id) from ${var:database_name}.employees;
 select count(distinct employee_id) from ${var:database_name}.employees;
 
---checking whether quantity and price is negative or null
-select count(*) from ${var:database_name}.sales where quantity < 0 or quantity=null;
+--checking whether price is negative or null
 select count(*) from ${var:database_name}.products where price < 0;
 select count(*) from ${var:database_name}.products where price = null;
 

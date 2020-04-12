@@ -79,7 +79,7 @@ create_sales_raw_db() {
 
 do_quality_analysis(){
   echo running quality analysis queries
-  impala-shell -f "$path_to_files"/quality_check.sql
+  impala-shell -f "$path_to_files"/sql/quality_check.sql
 }
 
 create_sales_db() {
@@ -118,7 +118,7 @@ view_product_sales_partition(){
    impala-shell -q "Select * from zeros_and_ones_sales.product_sales_partition limit 50"
 }
 
-view_product_sales_partition(){
+view_product_region_sales_partition(){
    impala-shell -q "Select * from zeros_and_ones_sales.product_region_sales_partition limit 50"
 }
 
