@@ -37,7 +37,9 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
     * customer_monthly_sales_2019_partitioned_view: This table gives monthly sales of each customer in 2019. The data partitioned on year and month.
     * product_region_sales_partition: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
   &nbsp;&nbsp;&nbsp;&nbsp; It is observed that, it is more efficient to use _customer_monthly_sales_2019_partitioned_view_ than  _customer_monthly_sales_2019_view_ for data retrieval due to the partitioning done on sales year and month. Time taken to retrieve 50 rows using _select *_ query is 17.97 seconds when the data is not partitioned and 5.62 seconds using partioned view.
+  
   <br/> &nbsp;&nbsp;&nbsp;&nbsp; Using the partitioned views makes the data analysis and visualization more efficient due to multiple reasons. Partitioning divides table entries into distinct groups based on the partition key. Hence when searching for a value in the partitioned table, the number of entries that need to be searched is lesser resulting in a reduced run time. Also, the query can be run in parallel in different partitions, reducing the response time of query. 
+  
    <br/> &nbsp;&nbsp;&nbsp;&nbsp; Creating the partitioned table, _product_region_sales_partition_, requires 100 partitions. When dynamic partitioning was used, due to memory issues(memory limit exceeded) the query failed to execute. To overcome this, we implemented static partitioning on the column _region_ and dynamic partitioning on _sales_year_ and _sales_month_ to create the table, _product_region_sales_partition_.
 ## Technologies
 * VirtualBox Cloudera VM - version 5.13.0
