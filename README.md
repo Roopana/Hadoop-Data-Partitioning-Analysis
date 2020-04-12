@@ -67,7 +67,7 @@ We used the range partition on order ID for the sales table in Kudu. We took 1 m
 We used hash partition for product table on product ID with 4 partitions. We chose this partitioning strategy as product table might not be very fast growing and hash ensures equal distribution of load on all tablets.
 ### 3. Query to give the total dollar amount sold by year
 
-SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
+      SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
 
@@ -82,7 +82,7 @@ Fetched 3 row(s) in 14.29s<br/>
 
 ### 4. Query to give the total dollar amount sold by year after inserting given records into the sales table
 
-SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
+      SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
 
@@ -97,7 +97,7 @@ Fetched 3 row(s) in 18.82s<br/>
 
 ### 5. Query to give the total dollar amount sold by year after deleting records added in step 4 and upserting given records into the sales table
 
-SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
+      SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
 
