@@ -50,14 +50,21 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 
 * Clone the git repository  
 * In the same location where the repository is cloned, run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -h"_ to get the list of commands that need to be executed for each query.
-* Run the queries as required. For example, _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l"_ to load sales data to hdfs
+* Run the queries maintaining the relative order given in the help (or as required). For example, _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l"_ to load sales data to hdfs
 
 ## Rollback Script
 * run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d"_ to drop all views, databases and delete the data from HDFS and disk.
    * Additional info for user: While dropping managed tables(parquet tables), instead of using _'CASCADE'_ command to drop the databases, the script initially drops the tables (using _'PURGE'_ command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
 
 ## Kudu Results
-### 1. Query to give the total dollar amount sold by year
+### 1. Partitioning for the sales table
+<br/>
+We used the range partition on order ID for the sales table in Kudu. We took 1 mil records per partition taking the range of order ID by giving the range. This gives us the flexibility to add more partitions in future as our data grows. Hash partition is not mutable and does not allow to add more partitions and hence we chose range partition because sales table could be a rapidly growing one.
+
+### 2. Partitioning for product table
+<br/>
+We used hash partition for product table on product ID with 4 partitions. We chose this partitioning strategy as product table might not be very fast growing and hash ensures equal distribution of load on all tablets.
+### 3. Query to give the total dollar amount sold by year
 <br/>
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
@@ -72,7 +79,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 +---------------------+------+<br/>
 Fetched 3 row(s) in 14.29s<br/>
 
-### 2. Query to give the total dollar amount sold by year after inserting given records into the sales table
+### 4. Query to give the total dollar amount sold by year after inserting given records into the sales table
 <br/>
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
@@ -87,7 +94,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 +---------------------+------+<br/>
 Fetched 3 row(s) in 18.82s<br/>
 
-### 3. Query to give the total dollar amount sold by year after deleting records added in step 2 and upserting given records into the sales table
+### 5. Query to give the total dollar amount sold by year after deleting records added in step 2 and upserting given records into the sales table
 <br/>
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
@@ -100,4 +107,4 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 | 1505770418.65269&nbsp;&nbsp;&nbsp;  | 2018 |<br/>
 | 1761530108.44215&nbsp;&nbsp;&nbsp;&nbsp;  | 2019 |<br/>
 +---------------------+------+<br/>
-Fetched 3 row(s) in 42.45s<br/>
+Fetched 3 row(s) in 12.45s<br/>
