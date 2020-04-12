@@ -53,7 +53,6 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 * Run the queries maintaining the relative order given in the help (or as required). For example, _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l"_ to load sales data to hdfs
 
 ## Rollback Script
-    This script removes the databases, tables, HDFS files and data on disk used for both impala and kudu
 * run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d"_ to drop all views, databases and delete the data from HDFS and disk.
    * Additional info for user: While dropping managed tables(parquet tables), instead of using _'CASCADE'_ command to drop the databases, the script initially drops the tables (using _'PURGE'_ command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
 
@@ -95,7 +94,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 +---------------------+------+<br/>
 Fetched 3 row(s) in 18.82s<br/>
 
-### 5. Query to give the total dollar amount sold by year after deleting the records added in step 4 and upserting given records into the sales table
+### 5. Query to give the total dollar amount sold by year after deleting records added in step 2 and upserting given records into the sales table
 
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
@@ -109,3 +108,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 | 1761530108.44215&nbsp;&nbsp;&nbsp;&nbsp;  | 2019 |<br/>
 +---------------------+------+<br/>
 Fetched 3 row(s) in 12.45s<br/>
+
+### 6. Managing the records in Sales table using insert or upsert 
+<br/>
+The sales tables should be managed using upsert rather than insert. This is because a primary key mandatory in Kudu tables and when one tries to insert a record that already exists, Kudu just skips the record and it will not be updated. Whereas when upserted, if the record exists, it will be updated else a new record will be inserted into the table. This will prevent information loss about the sales.
