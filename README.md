@@ -1,5 +1,5 @@
 # CSCI 5751_Hadoop_Project
-> Ingest sales data from data warehouse into data lake and prepare it for analysis and consumption.
+> Ingest the sales data from given data warehouse into data lake and prepare it for analysis and consumption.
 
 ### Group Name: zeros_and_ones
 
@@ -110,4 +110,4 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 Fetched 3 row(s) in 12.45s<br/>
 
 ### 6. Managing the records in Sales table using insert or upsert 
-The sales tables should be managed using upsert rather than insert. This is because a primary key mandatory in Kudu tables and when one tries to insert a record that already exists, Kudu just skips the record and it will not be updated. Whereas when upserted, if the record exists, it will be updated else a new record will be inserted into the table. This will prevent information loss about the sales.
+The sales tables should be managed using upsert rather than insert. This is because a primary key is mandatory in Kudu tables and when one tries to insert a record that already exists, Kudu just skips the record and it will not be updated. Whereas when upserted, if the record exists, it will be updated else a new record will be inserted into the table. This will prevent information loss about the sales.
