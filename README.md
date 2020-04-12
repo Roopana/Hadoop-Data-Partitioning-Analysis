@@ -30,13 +30,13 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
   #### Views:
   &nbsp;&nbsp;&nbsp;&nbsp; _customer_monthly_sales_2019_view_ and _top_ten_customers_amount_view_ are created for a quick retrieval of monthy sales in 2019 and top 10 customers. Procedure to run these views is explained in the deployment instructions section. 
   #### Partitions:
-  &nbsp;&nbsp;&nbsp;&nbsp; Below are three partitioned views created as part of the project. It can be observed that, it is more efficient to use _customer_monthly_sales_2019_partitioned_view_ than  _customer_monthly_sales_2019_view_ for data retrieval and data visualization due to the partitioning done on sales year and month. Time taken to retrieve 50 rows using select * query is 17.97 seconds when the data is not partitioned and 5.62 seconds using partioned view.
-  <br/>&nbsp;&nbsp;&nbsp;&nbsp; Using the partitioned views makes the data analysis and visualization more efficient due to multiple reasons. Partitioning divides table entries into distinct groups based on the partition key. Hence when searching for a value in the partitioned table, the number of entries that need to be searched is lesser resulting in a reduced run time. Also, the query can be run in parallel in different partitions, reducing the response time of query. 
+  &nbsp;&nbsp;&nbsp;&nbsp; Below are three partitioned views created as part of the project. It is observed that, it is more efficient to use _customer_monthly_sales_2019_partitioned_view_ than  _customer_monthly_sales_2019_view_ for data retrieval and data visualization due to the partitioning done on sales year and month. Time taken to retrieve 50 rows using _select *_ query is 17.97 seconds when the data is not partitioned and 5.62 seconds using partioned view.
       
-      * _product_sales_partition_: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
+    * _product_sales_partition_: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
     * _customer_monthly_sales_2019_partitioned_view_: This table gives monthly sales of each customer in 2019. The data partitioned on year and month.
     * _product_region_sales_partition_: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
-
+  
+  &nbsp;&nbsp;&nbsp;&nbsp; Using the partitioned views makes the data analysis and visualization more efficient due to multiple reasons. Partitioning divides table entries into distinct groups based on the partition key. Hence when searching for a value in the partitioned table, the number of entries that need to be searched is lesser resulting in a reduced run time. Also, the query can be run in parallel in different partitions, reducing the response time of query. 
 ## Technologies
 * VirtualBox Cloudera VM - version 5.13.0
   * HDFS
@@ -49,23 +49,23 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 ## Deployment Instructions
 
 * Clone the git repository  
-* In the same location where the repository is cloned, run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -h"_ to get the list of commands that need to be executed for each query.
-* Run the queries maintaining the relative order given in the help (or as required). For example, _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -l"_ to load sales data to hdfs
+* In the same location where the repository is cloned, run _"sh zeroes_and_ones_Hadoop/bin/deploy.sh -h"_ to get the list of commands that need to be executed for each query.
+* Run the queries maintaining the relative order given in the help (or as required). For example, _"sh zeroes_and_ones_Hadoop/bin/deploy.sh -l"_ to load sales data to hdfs
 
 ## Rollback Script
-* run _"sh /zeroes_and_ones_Hadoop/bin/deploy.sh -d"_ to drop all views, databases and delete the data from HDFS and disk.
+* run _"sh zeroes_and_ones_Hadoop/bin/deploy.sh -d"_ to drop all views, databases and delete the data from HDFS and disk.
    * Additional info for user: While dropping managed tables(parquet tables), instead of using _'CASCADE'_ command to drop the databases, the script initially drops the tables (using _'PURGE'_ command) and then the databases to remove the HDFS files. If we dont follow this approach to remove databases and create another database immediately, it has two copies of the data.
 
 ## Kudu Results
 ### 1. Partitioning for the sales table
-<br/>
+
 We used the range partition on order ID for the sales table in Kudu. We took 1 mil records per partition taking the range of order ID by giving the range. This gives us the flexibility to add more partitions in future as our data grows. Hash partition is not mutable and does not allow to add more partitions and hence we chose range partition because sales table could be a rapidly growing one.
 
 ### 2. Partitioning for product table
-<br/>
+
 We used hash partition for product table on product ID with 4 partitions. We chose this partitioning strategy as product table might not be very fast growing and hash ensures equal distribution of load on all tablets.
 ### 3. Query to give the total dollar amount sold by year
-<br/>
+
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
@@ -80,7 +80,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 Fetched 3 row(s) in 14.29s<br/>
 
 ### 4. Query to give the total dollar amount sold by year after inserting given records into the sales table
-<br/>
+
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
@@ -95,7 +95,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 Fetched 3 row(s) in 18.82s<br/>
 
 ### 5. Query to give the total dollar amount sold by year after deleting records added in step 2 and upserting given records into the sales table
-<br/>
+
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
@@ -108,3 +108,6 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 | 1761530108.44215&nbsp;&nbsp;&nbsp;&nbsp;  | 2019 |<br/>
 +---------------------+------+<br/>
 Fetched 3 row(s) in 12.45s<br/>
+
+### 6. Managing the records in Sales table using insert or upsert 
+The sales tables should be managed using upsert rather than insert. This is because a primary key mandatory in Kudu tables and when one tries to insert a record that already exists, Kudu just skips the record and it will not be updated. Whereas when upserted, if the record exists, it will be updated else a new record will be inserted into the table. This will prevent information loss about the sales.
