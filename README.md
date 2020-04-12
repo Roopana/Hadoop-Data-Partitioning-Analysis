@@ -31,12 +31,12 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
   &nbsp;&nbsp;&nbsp;&nbsp; _customer_monthly_sales_2019_view_ and _top_ten_customers_amount_view_ are created for a quick retrieval of monthy sales in 2019 and top 10 customers. Procedure to run these views is explained in the deployment instructions section. 
   #### Partitions:
   &nbsp;&nbsp;&nbsp;&nbsp; Below are three partitioned views created as part of the project. It can be observed that, it is more efficient to use _customer_monthly_sales_2019_partitioned_view_ than  _customer_monthly_sales_2019_view_ for data retrieval and data visualization due to the partitioning done on sales year and month. Time taken to retrieve 50 rows using select * query is 17.97 seconds when the data is not partitioned and 5.62 seconds using partioned view.
-  <br/>&nbsp;&nbsp;&nbsp;&nbsp; Using the partitioned views makes the data analysis and visualization more efficient due to multiple reasons. Partitioning divides table entries into distinct groups based on the partition key. Hence when searching for a value in the partitioned table, the number of entries that need to be searched is lesser resulting in a reduced run time. Also, the query can be run in parallel in different partitions, reducing the response time of query. 
       
-      * _product_sales_partition_: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
+    * _product_sales_partition_: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
     * _customer_monthly_sales_2019_partitioned_view_: This table gives monthly sales of each customer in 2019. The data partitioned on year and month.
     * _product_region_sales_partition_: Regional sales for each product is stored in this table and the data is partitioned on sales year and month
-
+  
+  <br/>&nbsp;&nbsp;&nbsp;&nbsp; Using the partitioned views makes the data analysis and visualization more efficient due to multiple reasons. Partitioning divides table entries into distinct groups based on the partition key. Hence when searching for a value in the partitioned table, the number of entries that need to be searched is lesser resulting in a reduced run time. Also, the query can be run in parallel in different partitions, reducing the response time of query. 
 ## Technologies
 * VirtualBox Cloudera VM - version 5.13.0
   * HDFS
