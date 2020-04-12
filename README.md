@@ -31,7 +31,7 @@ The data warehouse has data for Sales, Customers, Employees and Products. Below 
   &nbsp;&nbsp;&nbsp;&nbsp; _customer_monthly_sales_2019_view_ and _top_ten_customers_amount_view_ are created for a quick retrieval of monthy sales in 2019 and top 10 customers. Procedure to run these views is explained in the deployment instructions section. 
   #### Partitions:
 
-  &nbsp;&nbsp;&nbsp;&nbsp; Below are three partitioned views/tables created as part of the project
+  Below are three partitioned views/tables created as part of the project:
       
     * product_sales_partition: Total sales amount for each product is captured in this table and the data is partitioned on sales year and month
     * customer_monthly_sales_2019_partitioned_view: This table gives monthly sales of each customer in 2019. The data partitioned on year and month.
