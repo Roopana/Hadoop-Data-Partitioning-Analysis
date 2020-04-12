@@ -20,28 +20,28 @@ display_help() {
     echo
     echo "Usage: sh ~/zeros_and_ones_Hadoop/bin/deploy.sh -<option from below>"
     echo
-    echo   -h,     --help  :                                        display help contents
-    echo   -g,     --get_data  :                                    get sales data from url - Deliverable 2 step 1.1
-    echo   -l,     --load  :                                        load sales data to hdfs - Deliverable 2 step 1.2
-    echo   -cr,    --create_raw_db  :                               create Sales raw database - Deliverable 2 step 1.3,1.4
-    echo   -qa,    --quality_analysis :                             view quality analysis queries used 2 step 2.1
-    echo   -cs,    --create_sales_db  :                             create Sales database - Deliverable 2 step 2.2,2.3
-    echo   -cv,    --create_sales_views  :                          create Sales views - Deliverable 2, step 2.4
-    echo   -cps,   --create_product_sales_partitioned  :            Create partitioned tables - Deliverable 3 step 1
-    echo   -cpr,   --create_product_region_sales_partitioned  :     Create partitioned tables - Deliverable 3 step 3
-    echo   -cpv,   --create_sales_partitioned_view  :               Create Sales view from partitioned table - Deliverable 3 step 2
-    echo   -v1,    --view_customer_monthly_sales_2019_view  :       View data from customer_monthly_sales_2019_view
-    echo   -v2,    --view_customer_monthly_sales_2019_partitioned_view :  View data from customer_monthly_sales_2019_partitioned_view
-    echo   -v3,    --view_top_ten_customers_amount_view  :          View data from top_ten_customers_amount_view
-    echo   -v4,    --view_product_sales_partition  :                View data from product_sales_partition
-    echo   -v5,    --view_product_region_sales_partition :          View data from product_region_sales_partition
-    echo   -cks,   --create_kudu_sales :                            Create kudu sales and products tables
-    echo   -iks,   --insert_kudu_sales :                            Insert parquet data into kudu sales and products tables
-    echo   -q,     --query :                                        Run a query that will give the total dollar amount sold by year
-    echo   -ir,    --insert_records :                               Insert records into kudu_sales table
-    echo   -dr,    --delete_records :                               Delete records added in step 4 from kudu_sales
-    echo   -ur,    --upsert_records :                               Upsert records in kudu_sales
-    echo   -d,     --drop :                                         drop all Views and DATABASES with CASCADE and delete all data from HDFS and disk - Deliverable 3, step 4
+    echo   "-h,     --help  :                                        display help contents"
+    echo   "-g,     --get_data  :                                    get sales data from url - Deliverable 2 step 1.1"
+    echo   "-l,     --load  :                                        load sales data to hdfs - Deliverable 2 step 1.2"
+    echo   "-cr,    --create_raw_db  :                               create Sales raw database - Deliverable 2 step 1.3,1.4"
+    echo   "-qa,    --quality_analysis :                             view quality analysis queries used 2 step 2.1"
+    echo   "-cs,    --create_sales_db  :                             create Sales database - Deliverable 2 step 2.2,2.3"
+    echo   "-cv,    --create_sales_views  :                          create Sales views - Deliverable 2, step 2.4"
+    echo   "-cps,   --create_product_sales_partitioned  :            Create partitioned tables - Deliverable 3 step 1"
+    echo   "-cpr,   --create_product_region_sales_partitioned  :     Create partitioned tables - Deliverable 3 step 3"
+    echo   "-cpv,   --create_sales_partitioned_view  :               Create Sales view from partitioned table - Deliverable 3 step 2"
+    echo   "-v1,    --view_customer_monthly_sales_2019_view  :       View data from customer_monthly_sales_2019_view"
+    echo   "-v2,    --view_customer_monthly_sales_2019_partitioned_view :  View data from customer_monthly_sales_2019_partitioned_view"
+    echo   "-v3,    --view_top_ten_customers_amount_view  :          View data from top_ten_customers_amount_view"
+    echo   "-v4,    --view_product_sales_partition  :                View data from product_sales_partition"
+    echo   "-v5,    --view_product_region_sales_partition :          View data from product_region_sales_partition"
+    echo   "-cks,   --create_kudu_sales :                            Create kudu sales and products tables"
+    echo   "-iks,   --insert_kudu_sales :                            Insert parquet data into kudu sales and products tables"
+    echo   "-q,     --query :                                        Run a query that will give the total dollar amount sold by year"
+    echo   "-ir,    --insert_records :                               Insert records into kudu_sales table"
+    echo   "-dr,    --delete_records :                               Delete records added in step 4 from kudu_sales"
+    echo   "-ur,    --upsert_records :                               Upsert records in kudu_sales"
+    echo   "-d,     --drop :                                         drop all Views and DATABASES with CASCADE and delete all data from HDFS and disk - Deliverable 3, step 4"
     exit 1
 }
 
@@ -162,8 +162,8 @@ drop_sales_db() {
    impala-shell -q "DROP TABLE IF EXISTS zeros_and_ones_sales.product_sales_partition PURGE;"
    impala-shell -q "DROP TABLE IF EXISTS zeros_and_ones_sales.product_region_sales_partition PURGE;"
    impala-shell -q "DROP DATABASE IF EXISTS zeros_and_ones_sales;"
-   impala-shell -q "DROP TABLE IF EXISTS kudu_sales;"
-   impala-shell -q "DROP TABLE IF EXISTS kudu_products;"
+   impala-shell -q "DROP TABLE IF EXISTS kudu_sales PURGE;"
+   impala-shell -q "DROP TABLE IF EXISTS kudu_products PURGE;"
 }
 
 drop_sales_views() {
