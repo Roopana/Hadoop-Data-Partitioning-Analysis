@@ -58,14 +58,14 @@ Follow the instructions [here](https://github.com/aiBoss/zeroes_and_ones_Hadoop/
 
 ## Kudu Results
 ### 1. Partitioning for the sales table
-<br/>
+
 We used the range partition on order ID for the sales table in Kudu. We took 1 mil records per partition taking the range of order ID by giving the range. This gives us the flexibility to add more partitions in future as our data grows. Hash partition is not mutable and does not allow to add more partitions and hence we chose range partition because sales table could be a rapidly growing one.
 
 ### 2. Partitioning for product table
-<br/>
+
 We used hash partition for product table on product ID with 4 partitions. We chose this partitioning strategy as product table might not be very fast growing and hash ensures equal distribution of load on all tablets.
 ### 3. Query to give the total dollar amount sold by year
-<br/>
+
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
@@ -80,7 +80,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 Fetched 3 row(s) in 14.29s<br/>
 
 ### 4. Query to give the total dollar amount sold by year after inserting given records into the sales table
-<br/>
+
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
@@ -95,7 +95,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 Fetched 3 row(s) in 18.82s<br/>
 
 ### 5. Query to give the total dollar amount sold by year after deleting records added in step 2 and upserting given records into the sales table
-<br/>
+
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
 #### Query Results
