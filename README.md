@@ -95,7 +95,7 @@ SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM 
 +---------------------+------+<br/>
 Fetched 3 row(s) in 18.82s<br/>
 
-### 5. Query to give the total dollar amount sold by year after deleting records added in step 2 and upserting given records into the sales table
+### 5. Query to give the total dollar amount sold by year after deleting the records added in step 4 and upserting given records into the sales table
 
 SELECT sum(p.price) as total_dollar, date_part('year',s.sale_date) as year FROM kudu_products p JOIN kudu_sales s ON p.product_id=s.product_id GROUP BY date_part('year',s.sale_date)
 
